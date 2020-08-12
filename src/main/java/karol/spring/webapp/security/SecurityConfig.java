@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .and()
+                .authorizeRequests().antMatchers("/product/new").hasRole("ADMIN")
+                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .csrf().ignoringAntMatchers("/h2-console/**")
@@ -48,8 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN") // ROLE_STUDENT
                 .build();
 
+        UserDetails user = User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("user"))
+                .roles("USER") // ROLE_STUDENT
+                .build();
+
         return new InMemoryUserDetailsManager(
-                admin
+                admin,
+                user
         );
     }
 }

@@ -45,8 +45,8 @@
                                 USER NAME
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Add Product</a>
-                                <a class="dropdown-item" href="#">Show Users</a>
+                                <a class="dropdown-item" href="/product/new" sec:authorize="hasRole('ADMIN')">Add New Product</a>
+                                <a class="dropdown-item" href="#" sec:authorize="hasRole('ADMIN')">Show Users</a>
                                 <a class="dropdown-item" href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
                             </div>
                         </div>
