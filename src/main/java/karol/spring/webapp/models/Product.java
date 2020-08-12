@@ -34,5 +34,5 @@ public class Product {
     private String shortDescription;
 
     @Lob
-    private List<Byte[]> arrays = new ArrayList<Byte[]>();
+    private List<Byte[]> images;
 }
