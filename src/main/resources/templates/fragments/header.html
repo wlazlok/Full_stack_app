@@ -35,8 +35,22 @@
                     </td>
                 </div>
                 <div  sec:authorize="!isAnonymous()">
-                    <td style="width:25%; text-align: right;">
-                        <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Logout</button></a>
+                    <td style="width:25%;">
+
+                        <div class="dropdown show" style="margin-left: 49%;" >
+                            <a sec:authorize="hasRole('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ADMIN
+                            </a>
+                            <a sec:authorize="!hasRole('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                USER NAME
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Add Product</a>
+                                <a class="dropdown-item" href="#">Show Users</a>
+                                <a class="dropdown-item" href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
+                            </div>
+                        </div>
+
                     </td>
                 </div>
             </tr>
