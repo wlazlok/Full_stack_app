@@ -2,7 +2,7 @@ package karol.spring.webapp.models;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import java.util.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -33,5 +33,6 @@ public class Product {
 
     private String shortDescription;
 
-    //todo zdjecia
+    @Lob
+    private List<Byte> arrays = new ArrayList<Byte>();
 }
