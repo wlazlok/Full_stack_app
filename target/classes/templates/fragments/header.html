@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
 </head>
@@ -23,9 +24,21 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </div>
                 </td>
-                <td style="width:25%; text-align: right;">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                <td>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        Only for admin
+                    </div>
                 </td>
+                <div  sec:authorize="isAnonymous()">
+                    <td style="width:25%; text-align: right;">
+                        <a href="/login"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Login</button></a>
+                    </td>
+                </div>
+                <div  sec:authorize="!isAnonymous()">
+                    <td style="width:25%; text-align: right;">
+                        <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Logout</button></a>
+                    </td>
+                </div>
             </tr>
         </table>
     </nav>
