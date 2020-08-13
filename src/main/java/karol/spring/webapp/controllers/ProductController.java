@@ -50,34 +50,39 @@ public class ProductController {
             System.out.println(result.getAllErrors());
             return "redirect:/";
         }else{
-
-
-            try {
-                for(int x = 0; x< 3; x++) {
-
-                    Byte[] byteObject = new Byte[files[x].getBytes().length];
-                    int i = 0;
-
-                    for(byte b : files[x].getBytes())
-                        byteObject[i++] = b;
-
-                    if(x == 0)
-                        product.setMainImage(byteObject);
-                    if(x == 1)
-                        product.setImage1(byteObject);
-                    if(x == 2)
-                        product.setImage2(byteObject);
-
-                    byteObject = null;
-                    i = 0;
-                }
-            } catch (IOException e) {
-                System.out.println("ERROR_2");
-            }
+            convertImages(product, files);
 
             ProductCommand savedProduct = productService.save(product);
             System.out.println("SUCCESS!");
             return "redirect:/product/details/" + savedProduct.getId();
+        }
+    }
+
+    private void convertImages(@ModelAttribute ProductCommand product, @RequestParam("files") MultipartFile[] files) {
+        try {
+            for(int x = 0; x< 3; x++) {
+
+                if(files[x].getBytes().length == 0)
+                    continue;
+
+                Byte[] byteObject = new Byte[files[x].getBytes().length];
+                int i = 0;
+
+                for(byte b : files[x].getBytes())
+                    byteObject[i++] = b;
+
+                if(x == 0)
+                    product.setMainImage(byteObject);
+                if(x == 1)
+                    product.setImage1(byteObject);
+                if(x == 2)
+                    product.setImage2(byteObject);
+
+                byteObject = null;
+                i = 0;
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR_2");
         }
     }
 
