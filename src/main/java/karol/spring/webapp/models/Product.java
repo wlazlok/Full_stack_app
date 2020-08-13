@@ -34,5 +34,11 @@ public class Product {
     private String shortDescription;
 
     @Lob
-    private List<Byte[]> images;
+    private Byte[] mainImage;
+
+    @Lob
+    private Byte[] image1;
+
+    @Lob
+    private Byte[] image2;
 }

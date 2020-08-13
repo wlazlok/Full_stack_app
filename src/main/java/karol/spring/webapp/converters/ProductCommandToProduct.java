@@ -44,8 +44,15 @@ public class ProductCommandToProduct implements Converter<ProductCommand, Produc
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(source.getProducedDate());
         LocalDate ldt = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
         product.setProducedDate(ldt);
+
+        product.setMainImage(source.getMainImage());
+        product.setImage1(source.getImage1());
+        product.setImage2(source.getImage2());
+
         List<Category> categories = new ArrayList<>();
         categories = categoryRepository.findAll();
+
+
 
         for (Category cat: categories){
             if(cat.getId() == source.getCategoryId())

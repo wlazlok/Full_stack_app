@@ -1,13 +1,22 @@
 package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.commands.ProductCommand;
+import karol.spring.webapp.models.Product;
 import karol.spring.webapp.services.CategoryService;
 import karol.spring.webapp.services.CompanyService;
 import karol.spring.webapp.services.ProductService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 @RequestMapping("/product")
@@ -34,14 +43,38 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public String processAddNewProductForm(@ModelAttribute ProductCommand product, BindingResult result){
+    public String processAddNewProductForm(@ModelAttribute ProductCommand product, BindingResult result, @RequestParam("files") MultipartFile[] files){
 
-//        System.out.println(product.getCategory().getCategoryName());
 
         if(result.hasErrors()){
             System.out.println(result.getAllErrors());
             return "redirect:/";
         }else{
+
+
+            try {
+                for(int x = 0; x< 3; x++) {
+
+                    Byte[] byteObject = new Byte[files[x].getBytes().length];
+                    int i = 0;
+
+                    for(byte b : files[x].getBytes())
+                        byteObject[i++] = b;
+
+                    if(x == 0)
+                        product.setMainImage(byteObject);
+                    if(x == 1)
+                        product.setImage1(byteObject);
+                    if(x == 2)
+                        product.setImage2(byteObject);
+
+                    byteObject = null;
+                    i = 0;
+                }
+            } catch (IOException e) {
+                System.out.println("ERROR_2");
+            }
+
             ProductCommand savedProduct = productService.save(product);
             System.out.println("SUCCESS!");
             return "redirect:/product/details/" + savedProduct.getId();
@@ -49,7 +82,7 @@ public class ProductController {
     }
 
     @GetMapping("/details/{id}")
-    public String showProductDetail(@PathVariable Long id, Model model){
+    public String showProductDetail(@PathVariable Long id, Model model, HttpServletResponse response) throws IOException {
 
         model.addAttribute("product", productService.findProductById(Long.valueOf(id)));
 
