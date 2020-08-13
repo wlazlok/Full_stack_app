@@ -1,5 +1,8 @@
 package karol.spring.webapp.services;
 
+import karol.spring.webapp.commands.ProductCommand;
+import karol.spring.webapp.converters.ProductCommandToProduct;
+import karol.spring.webapp.converters.ProductToProductCommand;
 import karol.spring.webapp.models.Product;
 import karol.spring.webapp.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,13 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductCommandToProduct productCommandToProduct;
+    private final ProductToProductCommand productToProductCommand;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductCommandToProduct productCommandToProduct, ProductToProductCommand productToProductCommand) {
         this.productRepository = productRepository;
+        this.productCommandToProduct = productCommandToProduct;
+        this.productToProductCommand = productToProductCommand;
     }
 
     @Override
@@ -27,8 +34,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
-        return productRepository.save(product);
+    public ProductCommand save(ProductCommand command) {
+        Product detachedProduct = productCommandToProduct.convert(command);
+
+        Product savedProduct = productRepository.save(detachedProduct);
+
+        return productToProductCommand.convert(savedProduct);
     }
 
     @Override

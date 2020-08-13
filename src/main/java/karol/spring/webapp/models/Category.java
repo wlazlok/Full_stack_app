@@ -17,4 +17,5 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "category")
     private List<Product> products = new ArrayList<>();
+
 }

@@ -33,6 +33,26 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"><h4>Category</h4></label>
+                <div class="col-sm-5">
+                    <select class="form-control" th:field="*{categoryId}">
+                        <option th:each="cat : ${category}"
+                                th:value="${cat.getId()}"
+                                th:text="${cat.getCategoryName()}"
+                        >
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"><h4>Description</h4></label>
+                <div class="col-sm-5">
+                    <input type="text" th:field="*{producedDate}" class="form-control" placeholder="YYYY-MM-DD"/>
+                </div>
+            </div>
+
             <button class="btn btn-success" type="submit" value="Submit"><h5>Submit</h5></button>
         </form>
 <!--    </div>-->

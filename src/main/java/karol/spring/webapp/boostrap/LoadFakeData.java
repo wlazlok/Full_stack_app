@@ -63,6 +63,12 @@ public class LoadFakeData implements CommandLineRunner {
         companyRepository.save(testCompany);
         productRepository.save(testProduct);
 
+        // adding one more category to test
+
+        Category testCategory2 = new Category();
+        testCategory2.setCategoryName("Test 2");
+        categoryRepository.save(testCategory2);
+
         System.out.println("### Data loaded ###");
         System.out.println("products: " + productRepository.findAll().size());
         System.out.println("categories: " + categoryRepository.findAll().size());
