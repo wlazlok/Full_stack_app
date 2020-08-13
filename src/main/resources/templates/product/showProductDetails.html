@@ -26,6 +26,13 @@
     </div>
 
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Short description</label>
+        <div class="col-sm-10">
+            <p type="text" readonly class="form-control-plaintext" th:text="${product.getShortDescription()}"> </p>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">Price</label>
         <div class="col-sm-10">
             <p type="text" readonly class="form-control-plaintext" th:text="${product.getPrice()}"> </p>
@@ -47,7 +54,7 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">produced Date</label>
+        <label class="col-sm-2 col-form-label">Produced Date</label>
         <div class="col-sm-10">
             <p type="text" readonly class="form-control-plaintext" th:text="${product.getProducedDate()}"> </p>
         </div>

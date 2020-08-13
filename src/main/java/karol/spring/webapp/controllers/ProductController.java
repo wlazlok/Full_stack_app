@@ -1,8 +1,8 @@
 package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.commands.ProductCommand;
-import karol.spring.webapp.models.Product;
 import karol.spring.webapp.services.CategoryService;
+import karol.spring.webapp.services.CompanyService;
 import karol.spring.webapp.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,12 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final CompanyService companyService;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService, CompanyService companyService) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/new")
@@ -26,6 +28,7 @@ public class ProductController {
 
         model.addAttribute("product", new ProductCommand());
         model.addAttribute("category", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
 
         return "product/createNewProductForm";
     }

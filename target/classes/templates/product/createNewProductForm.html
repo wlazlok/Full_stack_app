@@ -47,9 +47,29 @@
             </div>
 
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label"><h4>Company</h4></label>
+                <div class="col-sm-5">
+                    <select class="form-control" th:field="*{companyId}">
+                        <option th:each="comp : ${companies}"
+                                th:value="${comp.getId()}"
+                                th:text="${comp.getCompanyName()}"
+                        >
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><h4>Description</h4></label>
                 <div class="col-sm-5">
                     <input type="text" th:field="*{producedDate}" class="form-control" placeholder="YYYY-MM-DD"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"><h4>Short description</h4></label>
+                <div class="col-sm-5">
+                    <input type="text" th:field="*{shortDescription}" class="form-control" />
                 </div>
             </div>
 
