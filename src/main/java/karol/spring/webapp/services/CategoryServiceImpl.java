@@ -5,6 +5,7 @@ import karol.spring.webapp.converters.CategoryToCategoryCommand;
 import karol.spring.webapp.models.Category;
 import karol.spring.webapp.models.Product;
 import karol.spring.webapp.repositories.CategoryRepository;
+import karol.spring.webapp.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,10 +16,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryToCategoryCommand categoryToCategoryCommand;
+    private final ProductRepository productRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryToCategoryCommand categoryToCategoryCommand) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryToCategoryCommand categoryToCategoryCommand, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
         this.categoryToCategoryCommand = categoryToCategoryCommand;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -45,5 +48,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category saveCategory(Category category) {
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteCategoryById(Long id) {
+        Category category = categoryRepository.findById(id).get();
+
+        for(Product prod: category.getProducts()){
+            prod.setCategory(null);
+            productRepository.save(prod);
+        }
+
+        categoryRepository.delete(category);
     }
 }

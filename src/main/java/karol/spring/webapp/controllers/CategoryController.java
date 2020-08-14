@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     private final CategoryService categoryService;
-    private final CategoryRepository categoryRepository;
 
-    public CategoryController(CategoryService categoryService, CategoryRepository categoryRepository) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
-        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping
@@ -54,5 +52,13 @@ public class CategoryController {
 
             return "redirect:/category";
         }
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteCategory(@PathVariable Long id){
+
+        categoryService.deleteCategoryById(id);
+
+        return "redirect:/category";
     }
 }

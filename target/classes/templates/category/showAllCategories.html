@@ -28,7 +28,7 @@
                     <td th:text="${cat.getCategoryName()}"></td>
                     <td><a th:href=" '/category/' + ${cat.getId()} + '/products' "><button type="button" class="btn btn-primary">Show</button></a></td>
                     <td><a ><button type="button" class="btn btn-primary">Edit</button></a></td>
-                    <td><a ><button type="button" class="btn btn-danger">Delete</button></a></td>
+                    <td><a  th:href=" '/category/' + ${cat.getId()} + '/delete' "><button type="button" class="btn btn-danger">Delete</button></a></td>
                 </tr>
             </tbody>
         </table>

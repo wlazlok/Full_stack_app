@@ -13,4 +13,6 @@ public interface CategoryService {
     List<Product> getProductsOfCategory(Long id);
 
     Category saveCategory(Category category);
+
+    void deleteCategoryById(Long id);
 }
