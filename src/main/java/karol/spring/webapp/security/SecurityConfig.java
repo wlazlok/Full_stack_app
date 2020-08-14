@@ -32,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 //                .authorizeRequests().antMatchers("/product/new").hasRole("ADMIN")
 //                .and()
+//                .authorizeRequests().antMatchers("/product/*/delete").hasRole("ADMIN")
+//                .and()
 //                .authorizeRequests().antMatchers("/product/*/edit").hasRole("ADMIN")
 //                .and()
 //                .authorizeRequests().antMatchers("/category").hasRole("ADMIN")
