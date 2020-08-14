@@ -1,7 +1,6 @@
 package karol.spring.webapp.services;
 
-import karol.spring.webapp.commands.CompanyCommand;
-import karol.spring.webapp.converters.CompanyToCompanyCommand;
+import karol.spring.webapp.models.Company;
 import karol.spring.webapp.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +11,15 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final CompanyToCompanyCommand companyToCompanyCommand;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository, CompanyToCompanyCommand companyToCompanyCommand) {
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
-        this.companyToCompanyCommand = companyToCompanyCommand;
     }
 
     @Override
-    public List<CompanyCommand> getAllCompanies() {
-
-        List<CompanyCommand> companies = new ArrayList<>();
-        companyRepository.findAll().forEach(comp ->{
-            companies.add(companyToCompanyCommand.convert(comp));
-        });
+    public List<Company> getAllCompanies() {
+        List<Company> companies = new ArrayList<>();
+        companyRepository.findAll().forEach(companies::add);
 
         return companies;
     }
