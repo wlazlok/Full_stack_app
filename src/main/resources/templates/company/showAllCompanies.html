@@ -28,7 +28,7 @@
             <td th:text="${comp.getId()}"></td>
             <td th:text="${comp.getCompanyName()}"></td>
             <td th:text="${comp.getCompanyDescription()}"></td>
-            <td><a ><button type="button" class="btn btn-primary">Show</button></a></td>
+            <td><a th:href=" '/company/' + ${comp.getId()} + '/products' "><button type="button" class="btn btn-primary">Show</button></a></td>
             <td><a th:href=" '/company/' + ${comp.getId()} + '/edit' "><button type="button" class="btn btn-primary">Edit</button></a></td>
             <td><a ><button type="button" class="btn btn-danger">Delete</button></a></td>
         </tr>

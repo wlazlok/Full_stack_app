@@ -73,4 +73,11 @@ public class CompanyController {
             return "redirect:/company";
         }
     }
+    @GetMapping("/{id}/products")
+    public String getCompanyProducts(Model model, @PathVariable Long id){
+
+        model.addAttribute("products", companyService.getProductsOfCompany(id));
+
+        return "company/showCompanyProducts";
+    }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Companies</title>
+    <title>Products of Company</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -16,27 +16,27 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col"><strong>ID</strong></th>
-            <th scope="col">Company Name</th>
-            <th scope="col">Company Description</th>
-            <th scope="col">Show Products</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Show</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="comp : ${companies}">
-            <td th:text="${comp.getId()}"></td>
-            <td th:text="${comp.getCompanyName()}"></td>
-            <td th:text="${comp.getCompanyDescription()}"></td>
-            <td><a th:href=" '/company/' + ${comp.getId()} + '/products' "><button type="button" class="btn btn-primary">Show</button></a></td>
-            <td><a th:href=" '/company/' + ${comp.getId()} + '/edit' "><button type="button" class="btn btn-primary">Edit</button></a></td>
-            <td><a ><button type="button" class="btn btn-danger">Delete</button></a></td>
+        <tr th:each="prod : ${products}">
+            <td th:text="${prod.getId()}"></td>
+            <td th:text="${prod.getProductName()}"></td>
+            <td><a th:href=" '/product/details/' + ${prod.getId()} "><button type="button" class="btn btn-primary">Show</button></a></td>
+            <td><a th:href=" '/product/' + ${prod.getId()} + '/edit' "><button type="button" class="btn btn-primary">Edit</button></a></td>
+            <td><a th:href=" '/product/' + ${prod.getId()} + '/delete' "><button type="button" class="btn btn-danger">Delete</button></a></td>
         </tr>
         </tbody>
     </table>
+
     <div style="text-align: right">
-        <a th:href="'/company/new'"><button type="button" class="btn btn-success">Add new Company</button></a>
+        <a th:href="'/product/new'"><button type="button" class="btn btn-success">Add new Product</button></a>
     </div>
 </div>
+
 </body>
 </html>
