@@ -2,6 +2,7 @@ package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.commands.ProductCommand;
 import karol.spring.webapp.converters.ProductToProductCommand;
+import karol.spring.webapp.models.Category;
 import karol.spring.webapp.services.CategoryService;
 import karol.spring.webapp.services.CompanyService;
 import karol.spring.webapp.services.ProductService;
@@ -106,7 +107,10 @@ public class ProductController {
 
     @PostMapping("/{id}/edit")
     @Transactional
-    public String processEditProduct(@Validated ProductCommand product, BindingResult result, @PathVariable Long id, Model model, @RequestParam("files") MultipartFile[] files){
+    public String processEditProduct(@Validated ProductCommand product,
+                                     BindingResult result,
+                                     @PathVariable Long id, Model model,
+                                     @RequestParam("files") MultipartFile[] files){
 
         if(result.hasErrors()){
             System.out.println("Problem during updating product");
@@ -119,4 +123,14 @@ public class ProductController {
             return "redirect:/product/details/" + id;
         }
     }
+    @GetMapping("/{id}/delete")
+    public String deleteProductById(@PathVariable Long id){
+
+        Long categoryId = productService.findProductById(id).getCategory().getId();
+
+        productService.deleteProductById(id);
+
+        return "redirect:/category/" + categoryId + "/products";
+    }
+
 }

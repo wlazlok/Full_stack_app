@@ -12,4 +12,6 @@ public interface ProductService {
     ProductCommand save(ProductCommand command);
 
     Product findProductById(Long id);
+
+    void deleteProductById(Long id);
 }

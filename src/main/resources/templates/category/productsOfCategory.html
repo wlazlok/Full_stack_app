@@ -28,7 +28,7 @@
                 <td th:text="${prod.getProductName()}"></td>
                 <td><a th:href=" '/product/details/' + ${prod.getId()} "><button type="button" class="btn btn-primary">Show</button></a></td>
                 <td><a th:href=" '/product/' + ${prod.getId()} + '/edit' "><button type="button" class="btn btn-primary">Edit</button></a></td>
-                <td><a ><button type="button" class="btn btn-danger">Delete</button></a></td>
+                <td><a th:href=" '/product/' + ${prod.getId()} + '/delete' "><button type="button" class="btn btn-danger">Delete</button></a></td>
             </tr>
             </tbody>
         </table>
