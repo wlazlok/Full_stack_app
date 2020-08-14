@@ -11,6 +11,7 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 <!--    <div style="margin-left:30%; margin-right:20%;">-->
+    <div class="container container-fluid" style="margin-top:2%; float: right">
         <form action="#" th:action="@{/product/new}" th:object="${product}" method="post" enctype="multipart/form-data">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><h4>Product Name</h4></label>
@@ -73,23 +74,22 @@
                 </div>
             </div>
 
-            <table>
+            <table style="margin-bottom: 2%;">
                 <tr>
-                    <td>Select a file to upload</td>
+                    <td>Select a file to upload as main image</td>
                     <td><input type="file" name="files" /></td>
                 </tr>
                 <tr>
-                    <td>Select a file to upload</td>
+                    <td>Select a file to upload first image</td>
                     <td><input type="file" name="files" /></td>
                 </tr>
                 <tr>
-                    <td>Select a file to upload</td>
+                    <td>Select a file to upload second image</td>
                     <td><input type="file" name="files" /></td>
                 </tr>
             </table>
-
-            <button class="btn btn-success" type="submit" value="Submit"><h5>Submit</h5></button>
+                <button class="btn btn-success" type="submit" value="Submit"><h5>Submit</h5></button>
         </form>
-
+    </div>
 </body>
 </html>
