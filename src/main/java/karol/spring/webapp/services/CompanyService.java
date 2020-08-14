@@ -8,4 +8,8 @@ import java.util.*;
 public interface CompanyService {
 
     List<Company> getAllCompanies();
+
+    Company getCompanyById(Long id);
+
+    Company saveCompany(Company company);
 }
