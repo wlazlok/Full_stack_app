@@ -40,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .authorizeRequests().antMatchers("/category/*/delete").hasRole("ADMIN")
 //                .and()
+//                .authorizeRequests().antMatchers("/category/*/edit").hasRole("ADMIN")
+//                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .csrf().ignoringAntMatchers("/h2-console/**")
