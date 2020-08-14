@@ -11,4 +11,6 @@ public interface CategoryService {
     List<CategoryCommand> getAllCategories();
 
     List<Product> getProductsOfCategory(Long id);
+
+    Category saveCategory(Category category);
 }
