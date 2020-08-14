@@ -25,7 +25,7 @@ public class CategoryController {
     public String getAllCategories(Model model){
 
         model.addAttribute("categories", categoryService.getAllCategories());
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "category/showAllCategories";
     }
 
@@ -33,7 +33,7 @@ public class CategoryController {
     public String getAllCategories(@PathVariable Long id, Model model){
 
         model.addAttribute("products", categoryService.getProductsOfCategory(id));
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "category/productsOfCategory";
     }
 
@@ -41,7 +41,7 @@ public class CategoryController {
     public String createNewCategory(Model model){
 
         model.addAttribute("category", new Category());
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "category/createNewCategoryForm";
     }
 
@@ -69,7 +69,7 @@ public class CategoryController {
     public String editCategory(Model model, @PathVariable Long id){
 
         model.addAttribute("category", categoryService.getCategoryById(id));
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "category/editCategory";
     }
 

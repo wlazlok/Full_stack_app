@@ -57,6 +57,18 @@
             </tr>
         </table>
     </nav>
+
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+            <div th:each="cat : ${categories}">
+                <a class="dropdown-item" th:href=" '/category/' + ${cat.getId()} + '/products' " th:text="${cat.getCategoryName()}"></a>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

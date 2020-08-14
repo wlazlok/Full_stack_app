@@ -1,6 +1,7 @@
 package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.models.Company;
+import karol.spring.webapp.services.CategoryService;
 import karol.spring.webapp.services.CompanyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final CategoryService categoryService;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, CategoryService categoryService) {
         this.companyService = companyService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
     public String getAllCompanies(Model model){
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("categories", categoryService.getAllCategories());
 
         return "company/showAllCompanies";
     }
@@ -29,7 +33,7 @@ public class CompanyController {
     @GetMapping("/{id}/edit")
     public String editCompany(Model model, @PathVariable Long id){
         model.addAttribute("company", companyService.getCompanyById(id));
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "company/editCompany";
     }
 
@@ -57,7 +61,7 @@ public class CompanyController {
     @GetMapping("/new")
     public String createNewCompany(Model model){
         model.addAttribute("company", new Company());
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "company/createNewCompanyForm";
     }
 
@@ -77,7 +81,7 @@ public class CompanyController {
     public String getCompanyProducts(Model model, @PathVariable Long id){
 
         model.addAttribute("products", companyService.getProductsOfCompany(id));
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "company/showCompanyProducts";
     }
 }

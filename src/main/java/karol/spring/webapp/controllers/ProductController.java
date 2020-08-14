@@ -39,7 +39,7 @@ public class ProductController {
         model.addAttribute("product", new ProductCommand());
         model.addAttribute("category", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "product/createNewProductForm";
     }
 
@@ -91,7 +91,7 @@ public class ProductController {
     public String showProductDetail(@PathVariable Long id, Model model, HttpServletResponse response) throws IOException {
 
         model.addAttribute("product", productService.findProductById(Long.valueOf(id)));
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "product/showProductDetails";
     }
 
@@ -101,7 +101,7 @@ public class ProductController {
         model.addAttribute("product", productToProductCommand.convert(productService.findProductById(id)));
         model.addAttribute("category", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
-
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "product/editProduct";
     }
 
