@@ -87,7 +87,6 @@ public class ImageController {
 
     @GetMapping("/frontImage/{id}")
     public void getFrontImage(@PathVariable Long id, HttpServletResponse response) throws IOException {
-        System.out.println("ZDJ: " + id);
         if (productService.findProductById(id).getMainImage() == null)
             System.out.println("Image not Found!");
         else {

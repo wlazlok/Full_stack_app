@@ -3,6 +3,7 @@ package karol.spring.webapp.services;
 import karol.spring.webapp.commands.CategoryCommand;
 import karol.spring.webapp.converters.CategoryToCategoryCommand;
 import karol.spring.webapp.models.Category;
+import karol.spring.webapp.models.Product;
 import karol.spring.webapp.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,15 @@ public class CategoryServiceImpl implements CategoryService {
         });
 
         return categories;
+    }
+
+    @Override
+    public List<Product> getProductsOfCategory(Long id) {
+
+        List<Product> products;
+        Category category = categoryRepository.findById(id).get();
+        products = category.getProducts();
+
+        return products;
     }
 }

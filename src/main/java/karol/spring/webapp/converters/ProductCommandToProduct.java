@@ -59,6 +59,8 @@ public class ProductCommandToProduct implements Converter<ProductCommand, Produc
                 product.setCategory(cat);
         }
 
+        product.getCategory().getProducts().add(product);
+
         List<Company> companies = new ArrayList<>();
         companies = companyRepository.findAll();
 
