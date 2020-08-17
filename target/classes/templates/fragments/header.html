@@ -65,7 +65,7 @@
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
             <div th:each="cat : ${categories}">
-                <a class="dropdown-item" th:href=" '/category/' + ${cat.getId()} + '/products' " th:text="${cat.getCategoryName()}"></a>
+                <a class="dropdown-item" th:href=" '/category/' + ${cat.getId()} " th:text="${cat.getCategoryName()}"></a>
             </div>
         </div>
     </div>

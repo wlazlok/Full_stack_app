@@ -37,6 +37,15 @@ public class CategoryController {
         return "category/productsOfCategory";
     }
 
+    @GetMapping("/{id}")
+    public String getAllProductsOfCategory(@PathVariable Long id, Model model){
+
+        model.addAttribute("products", categoryService.getProductsOfCategory(id));
+        model.addAttribute("categories", categoryService.getAllCategories());
+
+        return "product/showProductsForUsers";
+    }
+
     @GetMapping("/new")
     public String createNewCategory(Model model){
 

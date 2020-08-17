@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body style="background: #F8F9FA">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div style="margin-right: 25%; margin-left: 25%; text-align: center;" th:each="prod : ${products}">
+            <div style="float:left; background: blue; width: 150px; height: 150px; margin-top: 2%;" th:if="${prod.getMainImage()} != null">
+                <img th:src="@{'/frontImage/' + ${prod.getId()}}" class="card-img-top" alt="..." width="150" height="150">
+            </div>
+            <div style="float:left; background: blue; width: 150px; height: 150px; margin-top: 2%;" th:if="${prod.getMainImage()} == null">
+                <img th:src="@{/no-image.jpg}" style="width: 150px; height: 150px"/>
+            </div>
+            <div style="float:left; background: white; width: calc(100% - 150px); height: 150px; margin-top: 2%;">
+                <table style="width: 100%; text-align: left">
+                    <tr>
+                        <td><a style="color: black;" th:text="${prod.getProductName()}" th:href=" '/product/details/' + ${prod.getId()}"></td>
+                        <th style="float: right" th:text="${prod.getPrice() + ' zł'}"></th>
+                    </tr>
+                </table>
+            </div>
+    </div>
+
+</body>
+</html>
