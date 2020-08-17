@@ -57,17 +57,29 @@
             </tr>
         </table>
     </nav>
-
+    <div class="btn-group">
     <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Categories
         </a>
-
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
             <div th:each="cat : ${categories}">
                 <a class="dropdown-item" th:href=" '/category/' + ${cat.getId()} " th:text="${cat.getCategoryName()}"></a>
             </div>
         </div>
+    </div>
+    </div>
+    <div class="btn-group">
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Companies
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+            <div th:each="comp : ${companies}">
+                <a class="dropdown-item" th:href=" '/company/' + ${comp.getId()}" th:text="${comp.getCompanyName()}"></a>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 </body>

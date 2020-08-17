@@ -84,4 +84,12 @@ public class CompanyController {
         model.addAttribute("categories", categoryService.getAllCategories());
         return "company/showCompanyProducts";
     }
+
+    @GetMapping("/{id}")
+    public String getProductsOfComapyn(Model model, @PathVariable Long id){
+        model.addAttribute("products", companyService.getProductsOfCompany(id));
+        model.addAttribute("categories", categoryService.getAllCategories());
+
+        return "product/showProductsForUsers";
+    }
 }
