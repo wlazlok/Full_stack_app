@@ -40,6 +40,7 @@ public class ProductController {
         model.addAttribute("category", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("categories", categoryService.getAllCategories());
+
         return "product/createNewProductForm";
     }
 
@@ -92,6 +93,8 @@ public class ProductController {
 
         model.addAttribute("product", productService.findProductById(Long.valueOf(id)));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "product/showProductDetails";
     }
 

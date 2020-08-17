@@ -26,6 +26,7 @@ public class CompanyController {
     public String getAllCompanies(Model model){
         model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
 
         return "company/showAllCompanies";
     }
@@ -34,6 +35,8 @@ public class CompanyController {
     public String editCompany(Model model, @PathVariable Long id){
         model.addAttribute("company", companyService.getCompanyById(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "company/editCompany";
     }
 
@@ -62,6 +65,8 @@ public class CompanyController {
     public String createNewCompany(Model model){
         model.addAttribute("company", new Company());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "company/createNewCompanyForm";
     }
 
@@ -82,6 +87,8 @@ public class CompanyController {
 
         model.addAttribute("products", companyService.getProductsOfCompany(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "company/showCompanyProducts";
     }
 
@@ -89,6 +96,7 @@ public class CompanyController {
     public String getProductsOfComapyn(Model model, @PathVariable Long id){
         model.addAttribute("products", companyService.getProductsOfCompany(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
 
         return "product/showProductsForUsers";
     }

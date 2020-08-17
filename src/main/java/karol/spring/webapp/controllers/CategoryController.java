@@ -1,9 +1,8 @@
 package karol.spring.webapp.controllers;
 
-import karol.spring.webapp.commands.CategoryCommand;
 import karol.spring.webapp.models.Category;
-import karol.spring.webapp.repositories.CategoryRepository;
 import karol.spring.webapp.services.CategoryService;
+import karol.spring.webapp.services.CompanyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final CompanyService companyService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, CompanyService companyService) {
         this.categoryService = categoryService;
+        this.companyService = companyService;
     }
 
     @GetMapping
@@ -26,6 +27,7 @@ public class CategoryController {
 
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
         return "category/showAllCategories";
     }
 
@@ -34,6 +36,7 @@ public class CategoryController {
 
         model.addAttribute("products", categoryService.getProductsOfCategory(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
         return "category/productsOfCategory";
     }
 
@@ -42,6 +45,7 @@ public class CategoryController {
 
         model.addAttribute("products", categoryService.getProductsOfCategory(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
 
         return "product/showProductsForUsers";
     }
@@ -51,6 +55,8 @@ public class CategoryController {
 
         model.addAttribute("category", new Category());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "category/createNewCategoryForm";
     }
 
@@ -79,6 +85,8 @@ public class CategoryController {
 
         model.addAttribute("category", categoryService.getCategoryById(id));
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
+
         return "category/editCategory";
     }
 
