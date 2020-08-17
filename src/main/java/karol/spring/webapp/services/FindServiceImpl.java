@@ -22,19 +22,26 @@ public class FindServiceImpl implements FindService {
         List<Product> products = new ArrayList<>();
 
         String org = word;
-        // todo naprawic blad poniewaz czasami dodaje te same wartosci (napisac lepiej ta funkcje) !!!!!
+
         for(Product prod: productRepository.findAll()){
             word = org;
+
+            if(products.contains(prod))
+                continue;
             if(prod.getProductName().contains(word)) {
                 products.add(prod);
+                continue;
             }
-            word.toLowerCase();
+            word = word.toLowerCase();
+            System.out.println(word);
             if (prod.getProductName().contains(word)) {
                 products.add(prod);
+                continue;
             }
             word = word.substring(0, 1).toUpperCase() + word.substring(1);
             if(prod.getProductName().contains(word)){
                 products.add(prod);
+                continue;
             }
         }
 

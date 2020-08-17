@@ -19,9 +19,9 @@
                     </div>
                 </td>
                 <td style="width:50%; text-align: center;">
-                    <form action="#" th:object="${product}" method="post">
+                    <form action="#" th:action="@{/}" method="post">
                         <div class="input-group mb-2">
-                            <input th:field="*{productName}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input name="word" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </div>
                     </form>

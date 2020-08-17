@@ -41,10 +41,13 @@ public class ProductCommandToProduct implements Converter<ProductCommand, Produc
         product.setDescription(source.getDescription());
         product.setPrice(source.getPrice());
         product.setShortDescription(source.getShortDescription());
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(source.getProducedDate());
-        LocalDate ldt = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
-        product.setProducedDate(ldt);
-
+        if(product.getProducedDate() == null){ //todo napisac to lepiej
+            product.setProducedDate(null);
+        }else {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(source.getProducedDate());
+            LocalDate ldt = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+            product.setProducedDate(ldt);
+        }
         product.setMainImage(source.getMainImage());
         product.setImage1(source.getImage1());
         product.setImage2(source.getImage2());
