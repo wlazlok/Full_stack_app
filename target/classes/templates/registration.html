@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Create an account</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container">
+    <form method="POST" modelAttribute="userForm" th:object="${userForm}" class="form-signin">
+        <h2 class="form-signin-heading">Create your account</h2>
+
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}">
+                        <a th:each="err : ${#fields.errors('username')}" th:text="${err}"></a>
+                    </div>
+                    <input style="margin-bottom: 3%;" th:field="*{username}" type="text" path="username" class="form-control" placeholder="Username" autofocus="true">
+
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}">
+                        <a th:each="err : ${#fields.errors('password')}" th:text="${err}"></a>
+                    </div>
+                    <input th:field="*{password}" type="password" path="password" class="form-control" placeholder="Password">
+
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}">
+                        <a th:each="err : ${#fields.errors('password')}" th:text="${err}"></a>
+                    </div>
+                    <input th:field="*{passwordConfirm}"type="password" path="passwordConfirm" class="form-control" placeholder="Confirm your password">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <a style="text-align: center;" href="/"><p>Back home</p></a>
+    </form>
+</div>
+</body>
+</html>

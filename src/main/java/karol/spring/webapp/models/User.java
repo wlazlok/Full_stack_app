@@ -3,6 +3,7 @@ package karol.spring.webapp.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 
 @Data
@@ -20,6 +21,15 @@ public class User {
     protected String passwordConfirm;
 
     @ManyToMany
-    private Set<Role> roles;
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"
+            )
+    )
+    private Collection<Role> roles;
 }
 

@@ -27,7 +27,7 @@
                     </form>
                 </td>
                 <td>
-                    <div sec:authorize="hasRole('ADMIN')">
+                    <div sec:authorize="hasAuthority('ROLE_ADMIN')">>
                         Only for admin
                     </div>
                 </td>
@@ -40,16 +40,16 @@
                     <td style="width:25%;">
 
                         <div class="dropdown show" style="margin-left: 49%;" >
-                            <a sec:authorize="hasRole('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ADMIN
                             </a>
-                            <a sec:authorize="!hasRole('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a sec:authorize="!hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 USER NAME
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="/product/new" sec:authorize="hasRole('ADMIN')">Add New Product</a>
-                                <a class="dropdown-item" href="/category" sec:authorize="hasRole('ADMIN')">Show Categories</a>
-                                <a class="dropdown-item" href="/company" sec:authorize="hasRole('ADMIN')">Show Companies</a>
+                                <a class="dropdown-item" href="/product/new" sec:authorize="hasAuthority('ADMIN')">Add New Product</a>
+                                <a class="dropdown-item" href="/category" sec:authorize="hasAuthority('ADMIN')">Show Categories</a>
+                                <a class="dropdown-item" href="/company" sec:authorize="hasAuthority('ADMIN')">Show Companies</a>
                                 <a class="dropdown-item" href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
                             </div>
                         </div>
