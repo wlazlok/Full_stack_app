@@ -5,6 +5,8 @@ import karol.spring.webapp.repositories.UserRepository;
 import karol.spring.webapp.services.SecurityService;
 import karol.spring.webapp.services.UserService;
 import karol.spring.webapp.validators.UserValidator;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -71,14 +73,25 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}/details/edit/username")
-    public String getEditUsername(@PathVariable Long id, Model model){
+    public String getEditUsername(@PathVariable Long id, Model model, @ModelAttribute User user){
 
-        model.addAttribute("user", userService.findById(id));
-        return "user/editUserName";
+        if(securityService.getUsernameOfLoggedUser().equals(userService.findById(id).getUsername())) {
+            model.addAttribute("user", userService.findById(id));
+            return "user/editUserName";
+        }
+        else{
+
+            User userSaved = userService.findByUsername(securityService.getUsernameOfLoggedUser());
+
+            model.addAttribute("user", userSaved);
+            System.out.println("NIE MOZNA EDYTOWC INNCH"); //todo trzeba to zrobic inaczej
+            return "redirect:/user/" + userSaved.getId() + "/details/edit/username";
+        }
     }
 
     @PostMapping("/user/{id}/details/edit/username")
     public String processEditUsername(@PathVariable Long id, @ModelAttribute User user, BindingResult result, Model model){
+
 
         if(result.hasErrors()){
             System.out.println("Problem during updating username");
