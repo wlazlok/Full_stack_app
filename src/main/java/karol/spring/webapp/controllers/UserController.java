@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -57,6 +58,14 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
+    }
+
+    @GetMapping("/user/details")
+    public String getUserDetails(Model model){
+        User user = userService.findByUsername(securityService.getUsernameOfLoggedUser());
+
+        model.addAttribute("user", user);
+        return "user/userDetails";
     }
 
 }

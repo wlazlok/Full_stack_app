@@ -28,7 +28,7 @@
         </form>
     </div>
 </div>
-<div>
+<div sec:authorize="!isAnonymous()">
     <p>You are loggin in!</p>
     <a href="/">Back</a>
 </div>
