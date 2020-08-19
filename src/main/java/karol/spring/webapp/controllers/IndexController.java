@@ -1,10 +1,9 @@
 package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.models.Product;
-import karol.spring.webapp.services.CategoryService;
-import karol.spring.webapp.services.CompanyService;
-import karol.spring.webapp.services.FindService;
-import karol.spring.webapp.services.ProductService;
+import karol.spring.webapp.services.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +19,14 @@ public class IndexController {
     private final CategoryService categoryService;
     private final CompanyService companyService;
     private final FindService findService;
+    private final SecurityService securityService;
 
-    public IndexController(ProductService productService, CategoryService categoryService, CompanyService companyService, FindService findService) {
+    public IndexController(ProductService productService, CategoryService categoryService, CompanyService companyService, FindService findService, SecurityService securityService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.companyService = companyService;
         this.findService = findService;
+        this.securityService = securityService;
     }
 
     @GetMapping("/")
@@ -33,6 +34,7 @@ public class IndexController {
         model.addAttribute("products", productService.getProducts());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
         return "index";
     }
 
@@ -40,8 +42,11 @@ public class IndexController {
     public String processFindform(Model model, @RequestParam String word){
         List<Product> odp = findService.findProductsThatContainsWord(word);
 
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("products", odp);
-
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
+        
         return "product/showProductsForUsers";
     }
 

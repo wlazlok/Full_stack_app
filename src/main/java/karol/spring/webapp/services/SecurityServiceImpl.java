@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,7 @@ public class SecurityServiceImpl implements SecurityService {
     public String findLoggedInUser() {
 
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
+        System.out.println(userDetails.getClass());
         if(userDetails instanceof UserDetails)
             return ((UserDetails)userDetails).getUsername();
 
@@ -51,6 +53,13 @@ public class SecurityServiceImpl implements SecurityService {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             LOGGER.debug(String.format("Auto login %s successfully", username));
         }
+    }
+
+    @Override
+    public String getUsernameOfLoggedUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth.getName();
     }
 
 }

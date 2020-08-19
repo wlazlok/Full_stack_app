@@ -40,11 +40,9 @@
                     <td style="width:25%;">
 
                         <div class="dropdown show" style="margin-left: 49%;" >
-                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ADMIN
+                            <a th:text="${username}" sec:authorize="hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
-                            <a sec:authorize="!hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                USER NAME
+                            <a th:text="${username}" sec:authorize="!hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="/product/new" sec:authorize="hasAuthority('ADMIN')">Add New Product</a>

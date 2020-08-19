@@ -2,10 +2,10 @@ package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.commands.ProductCommand;
 import karol.spring.webapp.converters.ProductToProductCommand;
-import karol.spring.webapp.models.Category;
 import karol.spring.webapp.services.CategoryService;
 import karol.spring.webapp.services.CompanyService;
 import karol.spring.webapp.services.ProductService;
+import karol.spring.webapp.services.SecurityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,12 +25,14 @@ public class ProductController {
     private final CategoryService categoryService;
     private final CompanyService companyService;
     private final ProductToProductCommand productToProductCommand;
+    private final SecurityService securityService;
 
-    public ProductController(ProductService productService, CategoryService categoryService, CompanyService companyService, ProductToProductCommand productToProductCommand) {
+    public ProductController(ProductService productService, CategoryService categoryService, CompanyService companyService, ProductToProductCommand productToProductCommand, SecurityService securityService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.companyService = companyService;
         this.productToProductCommand = productToProductCommand;
+        this.securityService = securityService;
     }
 
     @GetMapping("/new")
@@ -40,6 +42,7 @@ public class ProductController {
         model.addAttribute("category", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "product/createNewProductForm";
     }
@@ -94,6 +97,7 @@ public class ProductController {
         model.addAttribute("product", productService.findProductById(Long.valueOf(id)));
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "product/showProductDetails";
     }

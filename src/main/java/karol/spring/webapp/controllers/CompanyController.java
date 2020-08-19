@@ -3,6 +3,7 @@ package karol.spring.webapp.controllers;
 import karol.spring.webapp.models.Company;
 import karol.spring.webapp.services.CategoryService;
 import karol.spring.webapp.services.CompanyService;
+import karol.spring.webapp.services.SecurityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ public class CompanyController {
 
     private final CompanyService companyService;
     private final CategoryService categoryService;
+    private final SecurityService securityService;
 
-    public CompanyController(CompanyService companyService, CategoryService categoryService) {
+    public CompanyController(CompanyService companyService, CategoryService categoryService, SecurityService securityService) {
         this.companyService = companyService;
         this.categoryService = categoryService;
+        this.securityService = securityService;
     }
 
     @GetMapping
@@ -27,6 +30,7 @@ public class CompanyController {
         model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "company/showAllCompanies";
     }
@@ -36,6 +40,7 @@ public class CompanyController {
         model.addAttribute("company", companyService.getCompanyById(id));
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "company/editCompany";
     }
@@ -66,6 +71,7 @@ public class CompanyController {
         model.addAttribute("company", new Company());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "company/createNewCompanyForm";
     }
@@ -88,6 +94,7 @@ public class CompanyController {
         model.addAttribute("products", companyService.getProductsOfCompany(id));
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "company/showCompanyProducts";
     }
@@ -97,6 +104,7 @@ public class CompanyController {
         model.addAttribute("products", companyService.getProductsOfCompany(id));
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("username", securityService.getUsernameOfLoggedUser());
 
         return "product/showProductsForUsers";
     }
