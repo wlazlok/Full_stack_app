@@ -34,13 +34,33 @@ public class LoadFakeData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadFakeData();
         loadRoles();
+        loadAdmin();
+        loadFakeUsers();
+
+    }
+
+    private void loadFakeUsers() {
+        User user1 = new User();
+        user1.setUsername("karol");
+        user1.setPassword(passwordEncoder.encode("karol"));
+        user1.setRoles(Arrays.asList(roleRepository.getRoleByName("USER")));
+
+        userRepository.save(user1);
+
+        User user2 = new User();
+        user2.setUsername("test");
+        user2.setPassword(passwordEncoder.encode("test"));
+        user2.setRoles(Arrays.asList(roleRepository.getRoleByName("USER")));
+
+        userRepository.save(user2);
+    }
+
+    private void loadAdmin() {
         User admin = new User();
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(Arrays.asList(roleRepository.getRoleByName("ADMIN")));
         userRepository.save(admin);
-
-
     }
 
     private void loadRoles(){
