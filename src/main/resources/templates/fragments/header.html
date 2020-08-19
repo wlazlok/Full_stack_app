@@ -45,9 +45,12 @@
                             <a th:text="${username}" sec:authorize="!hasAuthority('ADMIN')" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <!--              ADMIN             -->
                                 <a class="dropdown-item" href="/product/new" sec:authorize="hasAuthority('ADMIN')">Add New Product</a>
                                 <a class="dropdown-item" href="/category" sec:authorize="hasAuthority('ADMIN')">Show Categories</a>
                                 <a class="dropdown-item" href="/company" sec:authorize="hasAuthority('ADMIN')">Show Companies</a>
+                                <a class="dropdown-item" href="/users" sec:authorize="hasAuthority('ADMIN')">Show All Users</a>
+                                <!--              USERS             -->
                                 <a class="dropdown-item" href="/user/details" sec:authorize="hasAuthority('USER')">Show profile</a>
                                 <a class="dropdown-item" href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
                             </div>

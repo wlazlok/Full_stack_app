@@ -105,4 +105,12 @@ public class UserController {
         return "redirect:/logout";
     }
 
+    @GetMapping("/users")
+    public String getUsersList(Model model){
+
+        model.addAttribute("users", userService.getAllUsers());
+
+        return "user/showUsersList";
+    }
+
 }
