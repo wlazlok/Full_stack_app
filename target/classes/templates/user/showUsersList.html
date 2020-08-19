@@ -12,7 +12,7 @@
 <div th:replace="fragments/header :: header"></div>
 <div style="margin-right: 25%; margin-left: 25%; text-align: center">
     <ul class="list-group" th:each="user : ${users}">
-        <li class="list-group-item"><a th:text="${user.getUsername()}"></a></li>
+        <li class="list-group-item"><a th:text="${user.getUsername()}" th:href=" '/user/' + ${user.getId()} + '/detail' "></a></li>
     </ul>
 </div>
 </body>

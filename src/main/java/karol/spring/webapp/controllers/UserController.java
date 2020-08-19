@@ -112,5 +112,11 @@ public class UserController {
 
         return "user/showUsersList";
     }
+    @GetMapping("/user/{id}/detail")
+    public String getUsersDetailsForAdmin(@PathVariable Long id, Model model){
 
+        model.addAttribute("user", userService.findById(id));
+
+        return "user/userDetails";
+    }
 }
