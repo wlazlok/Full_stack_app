@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html lang="en" html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User Details</title>
@@ -16,7 +16,7 @@
             <tr>
                 <th>Username</th>
                 <th th:text="${user.getUsername()}"></th>
-                <th><a><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
+                <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/username' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
             </tr>
 <!--            <tr>-->
 <!--                <th>Password</th>-->

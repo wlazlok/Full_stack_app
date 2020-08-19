@@ -1,17 +1,17 @@
 package karol.spring.webapp.controllers;
 
 import karol.spring.webapp.models.User;
+import karol.spring.webapp.repositories.UserRepository;
 import karol.spring.webapp.services.SecurityService;
 import karol.spring.webapp.services.UserService;
 import karol.spring.webapp.validators.UserValidator;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -19,11 +19,13 @@ public class UserController {
     private final UserService userService;
     private final SecurityService securityService;
     private final UserValidator userValidator;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UserRepository userRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/registration")
@@ -66,6 +68,28 @@ public class UserController {
 
         model.addAttribute("user", user);
         return "user/userDetails";
+    }
+
+    @GetMapping("/user/{id}/details/edit/username")
+    public String getEditUsername(@PathVariable Long id, Model model){
+
+        model.addAttribute("user", userService.findById(id));
+        return "user/editUserName";
+    }
+
+    @PostMapping("/user/{id}/details/edit/username")
+    public String processEditUsername(@PathVariable Long id, @ModelAttribute User user, BindingResult result, Model model){
+
+        if(result.hasErrors()){
+            System.out.println("Problem during updating username");
+            return "redirect:/user/editUserName";
+        }
+
+        User savedUser = userService.findById(id);
+        savedUser.setUsername(user.getUsername());
+        userService.saveUserAfterChangeUsername(savedUser);
+
+        return "redirect:/logout";
     }
 
 }
