@@ -46,7 +46,7 @@ public class IndexController {
         model.addAttribute("companies", companyService.getAllCompanies());
         model.addAttribute("products", odp);
         model.addAttribute("username", securityService.getUsernameOfLoggedUser());
-        
+
         return "product/showProductsForUsers";
     }
 
