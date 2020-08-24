@@ -1,14 +1,12 @@
 package karol.spring.webapp.controllers;
 
+import karol.spring.webapp.converters.UserToUserCommand;
 import karol.spring.webapp.models.User;
 import karol.spring.webapp.repositories.UserRepository;
+import karol.spring.webapp.services.RoleService;
 import karol.spring.webapp.services.SecurityService;
 import karol.spring.webapp.services.UserService;
 import karol.spring.webapp.validators.UserValidator;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,12 +22,16 @@ public class UserController {
     private final SecurityService securityService;
     private final UserValidator userValidator;
     private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final UserToUserCommand userToUserCommand;
 
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UserRepository userRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UserRepository userRepository, RoleService roleService, UserToUserCommand userToUserCommand) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.userRepository = userRepository;
+        this.roleService = roleService;
+        this.userToUserCommand = userToUserCommand;
     }
 
     @GetMapping("/registration")
@@ -134,5 +136,15 @@ public class UserController {
         model.addAttribute("user", userService.findById(id));
 
         return "user/userDetails";
+    }
+
+    @GetMapping("/user/{id}/details/edit/role")
+    public String getEditUserRole(Model model, @PathVariable Long id){
+
+        model.addAttribute("user", userToUserCommand.convert(userService.findById(id)));
+        model.addAttribute("roles", roleService.getAllRoles());
+        System.out.println(roleService.getAllRoles().size());
+
+        return "user/editRole";
     }
 }

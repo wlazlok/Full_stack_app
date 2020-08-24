@@ -25,7 +25,7 @@
         <tr sec:authorize="hasAuthority('ADMIN')">
             <th>Role</th>
             <th th:each="role : ${user.getRoles()}"> <a th:text="${role.getName()}"></a></th>
-            <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/username' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
+            <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/role' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
         </tr>
         </thead>
     </table>
