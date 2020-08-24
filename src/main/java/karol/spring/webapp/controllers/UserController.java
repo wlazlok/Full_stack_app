@@ -1,5 +1,7 @@
 package karol.spring.webapp.controllers;
 
+import karol.spring.webapp.commands.ProductCommand;
+import karol.spring.webapp.commands.UserCommand;
 import karol.spring.webapp.converters.UserToUserCommand;
 import karol.spring.webapp.models.User;
 import karol.spring.webapp.repositories.UserRepository;
@@ -143,8 +145,22 @@ public class UserController {
 
         model.addAttribute("user", userToUserCommand.convert(userService.findById(id)));
         model.addAttribute("roles", roleService.getAllRoles());
-        System.out.println(roleService.getAllRoles().size());
 
         return "user/editRole";
+    }
+
+    @PostMapping("/user/{id}/details/edit/role")
+    public String processEditUserRole(@Validated UserCommand user, Model model, @PathVariable Long id,  BindingResult result){
+
+        user.setUsername(userService.findById(id).getUsername());
+        user.setPassword(userService.findById(id).getPassword());
+
+        if(result.hasErrors()){
+            System.out.println("Problem during updating user role");
+            return "redirect:/user/" + id  + "/details/edit/role";
+        }else{
+            userService.saveUserCommand(user);
+            return "redirect:/user/" + id + "/detail";
+        }
     }
 }

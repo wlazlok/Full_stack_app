@@ -1,5 +1,8 @@
 package karol.spring.webapp.services;
 
+import karol.spring.webapp.commands.UserCommand;
+import karol.spring.webapp.converters.UserCommandToUser;
+import karol.spring.webapp.converters.UserToUserCommand;
 import karol.spring.webapp.models.User;
 import karol.spring.webapp.repositories.RoleRepository;
 import karol.spring.webapp.repositories.UserRepository;
@@ -8,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -22,6 +24,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final UserCommandToUser userCommandToUser;
+    private final UserToUserCommand userToUserCommand;
+
+    public UserServiceImpl(UserCommandToUser userCommandToUser, UserToUserCommand userToUserCommand) {
+        this.userCommandToUser = userCommandToUser;
+        this.userToUserCommand = userToUserCommand;
+    }
 
 
     @Override
@@ -50,6 +60,18 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
 
         return userRepository.findAll();
+    }
+
+    @Override
+    public User saveUserCommand(UserCommand user) {
+
+        User detachedUser = userCommandToUser.convert(user);
+
+        User savedUser = userRepository.save(detachedUser);
+
+        System.out.println("SAVED USER ROLE " + savedUser.getRoles().stream().findFirst().get().getName());
+        System.out.println("SAVED USER USERNAME"  + savedUser.getUsername());
+        return savedUser;
     }
 
 

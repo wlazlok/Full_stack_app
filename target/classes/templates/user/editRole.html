@@ -11,10 +11,10 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container container-fluid" style="margin-top:2%; float: right">
-    <h1 th:text=" 'User: ' + ${user.username} "></h1>
     <form action="#"  th:object="${user}" method="post" enctype="multipart/form-data">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"><h4>Role</h4></label>
+
             <div class="col-sm-5">
             <select class="form-control" th:field="*{roleId}">
                 <option th:each="role : ${roles}"
@@ -24,10 +24,9 @@
                 </option>
             </select>
             </div>
+
         </div>
-
         <button class="btn btn-success" type="submit" value="Submit"><h5>Submit</h5></button>
-
     </form>
 </div>
 </body>
