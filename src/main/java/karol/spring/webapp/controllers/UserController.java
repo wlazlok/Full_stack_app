@@ -115,8 +115,8 @@ public class UserController {
         Collection loggedUserAuthorities = securityService.getLoggerUser();
 
         if(loggedUserAuthorities.stream().findFirst().get().toString().equals("ADMIN")){ //sprwdzanie czy zalogowany uzytkownik ma prawa admina, jesli tak moze edytowac innych
-            model.addAttribute("user", userService.findById(id));
-            return "user/editUserName";
+            model.addAttribute("user", userService.findById(id)); //todo trzeba to zrobic lepiej
+            return "user/editPassword";
         }
         else{
             if (loggedUserUsername.equals(userService.findById(id).getUsername())) {
