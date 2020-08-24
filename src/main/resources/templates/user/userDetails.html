@@ -18,10 +18,11 @@
                 <th th:text="${user.getUsername()}"></th>
                 <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/username' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
             </tr>
-<!--            <tr>-->
-<!--                <th>Password</th>-->
-<!--                <th th:text="${user.getPassword()}"></th>-->
-<!--            </tr>-->
+            <tr>
+                <th>Password</th>
+                <th ></th>
+                <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/password' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
+            </tr>
         <tr sec:authorize="hasAuthority('ADMIN')">
             <th>Role</th>
             <th th:each="role : ${user.getRoles()}"> <a th:text="${role.getName()}"></a></th>

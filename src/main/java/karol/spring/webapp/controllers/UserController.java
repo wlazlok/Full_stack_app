@@ -9,6 +9,8 @@ import karol.spring.webapp.services.RoleService;
 import karol.spring.webapp.services.SecurityService;
 import karol.spring.webapp.services.UserService;
 import karol.spring.webapp.validators.UserValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,9 @@ public class UserController {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final UserToUserCommand userToUserCommand;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UserRepository userRepository, RoleService roleService, UserToUserCommand userToUserCommand) {
         this.userService = userService;
@@ -102,6 +107,59 @@ public class UserController {
             }
         }
     }
+
+    @GetMapping("/user/{id}/details/edit/password")
+    public String getEditPassword(@PathVariable Long id, Model model, @ModelAttribute User user){
+
+        String loggedUserUsername = securityService.getUsernameOfLoggedUser();
+        Collection loggedUserAuthorities = securityService.getLoggerUser();
+
+        if(loggedUserAuthorities.stream().findFirst().get().toString().equals("ADMIN")){ //sprwdzanie czy zalogowany uzytkownik ma prawa admina, jesli tak moze edytowac innych
+            model.addAttribute("user", userService.findById(id));
+            return "user/editUserName";
+        }
+        else{
+            if (loggedUserUsername.equals(userService.findById(id).getUsername())) {
+                model.addAttribute("user", userService.findById(id));
+                return "user/editPassword";
+            }else{
+                User userSaved = userService.findByUsername(securityService.getUsernameOfLoggedUser());
+
+                model.addAttribute("user", userSaved);
+                return "redirect:/user/" + userSaved.getId() + "/details/edit/password";
+            }
+        }
+    }
+
+    @PostMapping("/user/{id}/details/edit/password")
+    public String processEditPassword(@ModelAttribute User user, @PathVariable Long id, @RequestParam(name = "currPass") String  currPass,BindingResult result){
+
+        if(bCryptPasswordEncoder.matches(currPass, userService.findById(id).getPassword())){
+
+            if(user.getPassword().equals(user.getPasswordConfirm())){
+
+                User savedUser = userService.findById(id);
+                savedUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                userService.saveUserAfterChangeUsername(savedUser);
+            }
+
+            Collection loggedUserAuthorities = securityService.getLoggerUser();
+
+            if(loggedUserAuthorities.stream().findFirst().get().toString().equals("ADMIN")){ //todo zmiana hasla jesli ktos jest adminem
+                return "redirect:/users";
+            }
+            else {
+                return "redirect:/logout";
+            }
+
+        }
+        else{
+            System.out.println("HASLA NIE SA TAKIE SAME"); //todo lepsza obsluga bledow
+        }
+
+        return "/";
+    }
+
 
     @PostMapping("/user/{id}/details/edit/username")
     public String processEditUsername(@PathVariable Long id, @ModelAttribute User user, BindingResult result, Model model){
