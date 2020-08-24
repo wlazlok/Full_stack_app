@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>User Details</title>
@@ -22,6 +22,11 @@
 <!--                <th>Password</th>-->
 <!--                <th th:text="${user.getPassword()}"></th>-->
 <!--            </tr>-->
+        <tr sec:authorize="hasAuthority('ADMIN')">
+            <th>Role</th>
+            <th th:each="role : ${user.getRoles()}"> <a th:text="${role.getName()}"></a></th>
+            <th><a th:href=" '/user/' + ${user.getId()} + '/details/edit/username' "><button type="button" class="btn btn-outline-danger btn-sm">Change</button></a></th>
+        </tr>
         </thead>
     </table>
 </div>
