@@ -11,6 +11,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container container-fluid" style="margin-top:2%; float: right">
+    <h1 th:text=" 'Username: ' + ${user.getUsername()}"></h1>
     <form action="#"  th:object="${user}" method="post" enctype="multipart/form-data">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"><h4>Role</h4></label>

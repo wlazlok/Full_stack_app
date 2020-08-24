@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/user/details").authenticated()
                 .and()
+                .authorizeRequests().antMatchers("/user/*/details/edit/role").hasAuthority("ADMIN")
+                .and()
                 .authorizeRequests().antMatchers("/user/*/details/edit/**").authenticated()
                 .and()
                 .authorizeRequests().antMatchers("/user/*/detail").hasAuthority("ADMIN")
