@@ -69,8 +69,6 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(detachedUser);
 
-        System.out.println("SAVED USER ROLE " + savedUser.getRoles().stream().findFirst().get().getName());
-        System.out.println("SAVED USER USERNAME"  + savedUser.getUsername());
         return savedUser;
     }
 
